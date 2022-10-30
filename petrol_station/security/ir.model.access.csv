@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_petrol_station_pump_pump,petrol_station pump_pump,model_pump_pump,,1,1,1,1
+access_station_shifts,petrol_station station_shifts,model_station_shifts,,1,1,1,1
+access_petrol_station,petrol_station petrol_station,model_petrol_station,,1,1,1,1

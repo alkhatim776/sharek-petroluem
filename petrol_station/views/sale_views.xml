@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<record id="order_form_inherit_petrol_station" model="ir.ui.view">
+        <field name="name">sale.order.form.inherit.petrol.station</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="station_order"/>
+                <field name="petrol_station_id" 
+                       attrs="{'invisible': [('station_order','=',False)],'required': [('station_order','=',True)]}"/>
+                <field name="shift_id" 
+                       domain="[('petrol_station_id','=',petrol_station_id)]"
+                       attrs="{'invisible': [('station_order','=',False)],'required': [('station_order','=',True)]}"/>
+                <field name="pump_ids" invisible="1"/>
+                <field name="product_ids" widget="many2many_tags" invisible="1"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+            	<field name="pump_id" 
+                       domain="[('id','in',parent.pump_ids)]"
+                       attrs="{'column_invisible': [('parent.station_order', '!=', True)],'required': [('parent.station_order', '=', True)]}" />
+            	<field name="initial_odometer_reading"
+                       attrs="{'column_invisible': [('parent.station_order', '!=', True)],'required': [('parent.station_order', '=', True)]}"/>
+            	<field name="last_odometer_reading"
+                       attrs="{'column_invisible': [('parent.station_order', '!=', True)],'required': [('parent.station_order', '=', True)]}"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_uom_qty']" position="attributes">
+                <attribute name="attrs">{'readonly': [('parent.station_order', '=', True)]}</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='product_id']" position="attributes">
+                <attribute name="domain">[('id', 'in', parent.product_ids)]</attribute>
+                <attribute name="force_save">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

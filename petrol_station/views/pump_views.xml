@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_pump_pump_search" model="ir.ui.view">
+            <field name="name">pump.pump.search</field>
+            <field name="model">pump.pump</field>
+            <field name="arch" type="xml">
+                <search string="Pump">
+                    <field name="name"/>
+                    <field name="station_id"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_pump_pump_tree" model="ir.ui.view">
+            <field name="name">pump.pump.tree</field>
+            <field name="model">pump.pump</field>
+            <field name="arch" type="xml">
+                <tree string="Pump">
+                    <field name="name"/>
+                    <field name="station_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_pump_pump_form" model="ir.ui.view">
+            <field name="name">pump.pump.form</field>
+            <field name="model">pump.pump</field>
+            <field name="arch" type="xml">
+                <form string="Pump">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                            </group>
+                            <group>
+                                <field name="station_id"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_pump_pump" model="ir.actions.act_window">
+            <field name="name">Pump</field>
+            <field name="res_model">pump.pump</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_pump_pump_search"/>
+        </record>
+
+        
+        <menuitem id="menu_petrol_station" 
+                  name="Petrol Station" 
+                  parent="sale.menu_sale_config"/>
+
+        <menuitem id="menu_pump_pump" 
+                  name="Gas Pump" 
+                  parent="menu_petrol_station" 
+                  action="action_pump_pump"
+                  sequence="3"/>
+
+    </data>
+</odoo>

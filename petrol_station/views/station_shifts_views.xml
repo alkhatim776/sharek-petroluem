@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_station_shifts_search" model="ir.ui.view">
+            <field name="name">station.shifts.search</field>
+            <field name="model">station.shifts</field>
+            <field name="arch" type="xml">
+                <search string="Shifts">
+                    <field name="name"/>
+                    <group expand="0" string="Group By">
+                        <filter string="Day of Week" name="dayofweek" context="{'group_by': 'dayofweek'}"/>
+                        <filter string="Day Period" name="day_period" context="{'group_by': 'day_period'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="view_station_shifts_tree" model="ir.ui.view">
+            <field name="name">station.shifts.tree</field>
+            <field name="model">station.shifts</field>
+            <field name="arch" type="xml">
+                <tree string="Shifts">
+                    <field name="name"/>
+                    <field name="dayofweek"/>
+                    <field name="day_period"/>
+                    <field name="hour_from"/>
+                    <field name="hour_to"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_station_shifts_form" model="ir.ui.view">
+            <field name="name">station.shifts.form</field>
+            <field name="model">station.shifts</field>
+            <field name="arch" type="xml">
+                <form string="Shifts">
+                    <sheet>
+                         <div class="oe_title">
+                            <h1 class="d-flex">
+                                <field name="name" placeholder="Name" required="True"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="dayofweek"/>
+                                <field name="hour_from"/>
+                                <field name="petrol_station_id"/>
+                            </group>
+                            <group>
+                                <field name="day_period"/>
+                                <field name="hour_to"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        
+        <record id="action_station_shifts" model="ir.actions.act_window">
+            <field name="name">Shifts</field>
+            <field name="res_model">station.shifts</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_station_shifts_search"/>
+        </record>
+
+        
+
+        <menuitem id="menu_station_shifts" 
+                  name="Station Shifts" 
+                  parent="menu_petrol_station" 
+                  action="action_station_shifts"
+                  sequence="2"/>
+
+    </data>
+</odoo>
